@@ -1,0 +1,71 @@
+/* PaperMod custom tweaks: smaller headings */
+.post-title {
+    font-size: 1.5rem;
+}
+
+.entry-header h2, .entry-hint-parent {
+    font-size: 1.1rem;
+}
+
+/* All entries equal - first-entry becomes a normal post-entry */
+.first-entry {
+    min-height: 0;
+    margin-bottom: var(--gap);
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: var(--radius);
+    transition: transform 0.25s ease;
+    border: 1px solid var(--border);
+    justify-content: normal;
+}
+.first-entry:hover,
+.first-entry:focus-within {
+    transform: translateY(-2px);
+    border-color: var(--tertiary);
+}
+.first-entry .entry-header {
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    display: block;
+}
+.first-entry .entry-header h2,
+.first-entry .entry-header .entry-hint-parent {
+    font-size: 1.1rem;
+}
+.first-entry .entry-content {
+    margin: 8px 0;
+    font-size: 0.9rem;
+    -webkit-line-clamp: 2;
+}
+.first-entry .entry-footer {
+    font-size: 0.85rem;
+}
+
+.post-content h2 {
+    font-size: 1.25rem;
+}
+
+.post-content h3 {
+    font-size: 1.05rem;
+}
+
+.post-content h4 {
+    font-size: 0.95rem;
+}
+
+.post-content p, .post-content li {
+    font-size: 0.92rem;
+}
+
+.post-description, .entry-content p {
+    font-size: 0.9rem;
+}
+
+.meta, .post-meta {
+    font-size: 0.85rem;
+}
+
+/* Slightly smaller body default */
+body {
+    font-size: 0.95rem;
+}

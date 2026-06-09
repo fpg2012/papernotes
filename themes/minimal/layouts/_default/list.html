@@ -1,0 +1,16 @@
+{{ define "main" }}
+<h1>📄 Paper Reading Notes</h1>
+<p>{{ .Content }}</p>
+<section class="paper-list">
+  {{ range .Pages.ByDate.Reverse }}
+  <article class="paper-entry">
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p class="meta">
+      <time>{{ .Date.Format "2006-01-02" }}</time>
+      {{ with .Params.arxiv }} · <a href="{{ . }}">arXiv</a>{{ end }}
+    </p>
+    <blockquote>{{ .Params.tldr }}</blockquote>
+  </article>
+  {{ end }}
+</section>
+{{ end }}

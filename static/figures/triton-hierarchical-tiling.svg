@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 520" font-family="system-ui, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#64748b"/></marker>
+    <marker id="arrow-bw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#334155"/></marker>
+  </defs>
+  <style>
+    .title { font-size: 16px; font-weight: 700; fill: #172033; }
+    .stitle { font-size: 13px; font-weight: 600; fill: #5b6475; }
+    .node-label { font-size: 13px; fill: #172033; text-anchor: middle; dominant-baseline: middle; }
+    .small-label { font-size: 11px; fill: #5b6475; text-anchor: middle; }
+    .zone-label { font-size: 12px; fill: #5b6475; font-weight: 600; }
+    .edge { stroke: #64748b; stroke-width: 1.5; fill: none; }
+    .edge-dashed { stroke: #64748b; stroke-width: 1.5; fill: none; stroke-dasharray: 6 4; }
+    .edge-bw { stroke: #334155; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+    .block-tile { fill: #c7d2fe; stroke: #4338ca; stroke-width: 1.5; rx: 4; }
+    .block-micro { fill: #bfdbfe; stroke: #1d4ed8; stroke-width: 1.5; rx: 4; }
+    .block-nano { fill: #99f6e4; stroke: #0f766e; stroke-width: 1.5; rx: 4; }
+    .mem-level { fill: #e2e8f0; stroke: #64748b; stroke-width: 1; rx: 6; }
+    .highlight { fill: #fde68a; stroke: #92400e; stroke-width: 1; rx: 3; }
+  </style>
+
+  <!-- Title -->
+  <text x="390" y="30" text-anchor="middle" class="title" font-size="18">Hierarchical Tiling &amp; GPU Memory Model</text>
+
+  <!-- Left side: Memory hierarchy -->
+  <rect x="30" y="55" width="280" height="440" class="mem-level" rx="8"/>
+  <text x="170" y="78" text-anchor="middle" class="zone-label">GPU Memory Hierarchy</text>
+
+  <!-- DRAM -->
+  <rect x="50" y="95" width="240" height="100" fill="#ddd6fe" stroke="#7c3aed" stroke-width="1.5" rx="6"/>
+  <text x="170" y="130" text-anchor="middle" class="node-label" font-weight="700">DRAM (Global Memory)</text>
+  <text x="170" y="150" text-anchor="middle" class="small-label">~100+ GB/s, high latency</text>
+  <text x="170" y="167" text-anchor="middle" class="small-label">per-kernel-instance</text>
+  <text x="50" y="93" style="font-size:11px;fill:#5b6475">Level 1: Tile</text>
+
+  <!-- Arrow from DRAM to Shared Mem -->
+  <line x1="170" y1="195" x2="170" y2="215" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Shared Memory -->
+  <rect x="50" y="215" width="240" height="100" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="1.5" rx="6"/>
+  <text x="170" y="250" text-anchor="middle" class="node-label" font-weight="700">Shared Memory</text>
+  <text x="170" y="270" text-anchor="middle" class="small-label">~1-2 TB/s, low latency</text>
+  <text x="170" y="287" text-anchor="middle" class="small-label">per-thread-block</text>
+  <text x="50" y="213" style="font-size:11px;fill:#5b6475">Level 2: Micro-Tile</text>
+
+  <!-- Arrow from Shared Mem to Register -->
+  <line x1="170" y1="315" x2="170" y2="335" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Register File -->
+  <rect x="50" y="335" width="240" height="100" fill="#99f6e4" stroke="#0f766e" stroke-width="1.5" rx="6"/>
+  <text x="170" y="370" text-anchor="middle" class="node-label" font-weight="700">Register File</text>
+  <text x="170" y="390" text-anchor="middle" class="small-label">~10+ TB/s, zero latency</text>
+  <text x="170" y="407" text-anchor="middle" class="small-label">per-thread / SIMD unit</text>
+  <text x="50" y="333" style="font-size:11px;fill:#5b6475">Level 3: Nano-Tile</text>
+
+  <!-- Right side: Tile decomposition -->
+  <rect x="340" y="55" width="410" height="440" class="mem-level" rx="8"/>
+  <text x="545" y="78" text-anchor="middle" class="zone-label">Tile Decomposition (Example)</text>
+
+  <!-- Original tile -->
+  <text x="545" y="100" text-anchor="middle" class="node-label" font-weight="600" fill="#4338ca">Original Tile: 64×64 matrix</text>
+  <rect x="485" y="108" width="120" height="50" class="block-tile"/>
+  <text x="545" y="136" text-anchor="middle" class="node-label" fill="#4338ca">64 × 64</text>
+
+  <!-- Decomposition arrow -->
+  <line x1="545" y1="158" x2="545" y2="178" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Micro-tiles (4 of them) -->
+  <text x="545" y="195" text-anchor="middle" class="node-label" font-weight="600" fill="#1d4ed8">4 × 4 Micro-Tiles: 16×16 each</text>
+  <rect x="485" y="205" width="50" height="45" class="block-micro"/>
+  <rect x="539" y="205" width="50" height="45" class="block-micro"/>
+  <rect x="485" y="254" width="50" height="45" class="block-micro"/>
+  <rect x="539" y="254" width="50" height="45" class="block-micro"/>
+  <text x="510" y="228" text-anchor="middle" class="small-label">16×16</text>
+  <text x="564" y="228" text-anchor="middle" class="small-label">16×16</text>
+  <text x="510" y="277" text-anchor="middle" class="small-label">16×16</text>
+  <text x="564" y="277" text-anchor="middle" class="small-label">16×16</text>
+
+  <!-- Decomposition arrow -->
+  <line x1="545" y1="299" x2="545" y2="319" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Nano-tiles (one micro-tile expanded) -->
+  <text x="545" y="336" text-anchor="middle" class="node-label" font-weight="600" fill="#0f766e">Each Micro-Tile → 8 × 8 Nano-Tiles: 2×2 each</text>
+  <g transform="translate(405, 348)">
+    <!-- Grid of 8x8 nano-tiles -->
+    <g>
+      <rect x="0" y="0" width="16" height="14" class="block-nano"/><rect x="18" y="0" width="16" height="14" class="block-nano"/>
+      <rect x="36" y="0" width="16" height="14" class="block-nano"/><rect x="54" y="0" width="16" height="14" class="block-nano"/>
+      <rect x="72" y="0" width="16" height="14" class="block-nano"/><rect x="90" y="0" width="16" height="14" class="block-nano"/>
+      <rect x="108" y="0" width="16" height="14" class="block-nano"/><rect x="126" y="0" width="16" height="14" class="block-nano"/>
+      <rect x="0" y="16" width="16" height="14" class="block-nano"/><rect x="18" y="16" width="16" height="14" class="block-nano"/>
+      <rect x="36" y="16" width="16" height="14" class="block-nano"/><rect x="54" y="16" width="16" height="14" class="block-nano"/>
+      <rect x="72" y="16" width="16" height="14" class="block-nano"/><rect x="90" y="16" width="16" height="14" class="block-nano"/>
+      <rect x="108" y="16" width="16" height="14" class="block-nano"/><rect x="126" y="16" width="16" height="14" class="block-nano"/>
+      <rect x="0" y="32" width="16" height="14" class="block-nano"/><rect x="18" y="32" width="16" height="14" class="block-nano"/>
+      <rect x="36" y="32" width="16" height="14" class="block-nano"/><rect x="54" y="32" width="16" height="14" class="block-nano"/>
+      <rect x="72" y="32" width="16" height="14" class="block-nano"/><rect x="90" y="32" width="16" height="14" class="block-nano"/>
+      <rect x="108" y="32" width="16" height="14" class="block-nano"/><rect x="126" y="32" width="16" height="14" class="block-nano"/>
+      <rect x="0" y="48" width="16" height="14" class="block-nano"/><rect x="18" y="48" width="16" height="14" class="block-nano"/>
+      <rect x="36" y="48" width="16" height="14" class="block-nano"/><rect x="54" y="48" width="16" height="14" class="block-nano"/>
+      <rect x="72" y="48" width="16" height="14" class="block-nano"/><rect x="90" y="48" width="16" height="14" class="block-nano"/>
+      <rect x="108" y="48" width="16" height="14" class="block-nano"/><rect x="126" y="48" width="16" height="14" class="block-nano"/>
+    </g>
+  </g>
+
+  <!-- Callout: auto tuning -->
+  <rect x="380" y="425" width="330" height="55" fill="#fde68a" stroke="#92400e" stroke-width="1" rx="4"/>
+  <text x="545" y="446" text-anchor="middle" class="node-label" font-weight="600" fill="#92400e">Auto-Tuner 穷举搜索</text>
+  <text x="545" y="464" text-anchor="middle" class="small-label" fill="#92400e">Tile(32~128) × Micro(8~32) × Nano(1~4) 的 2 的幂组合</text>
+
+  <!-- Legend -->
+  <g transform="translate(340, 482)">
+    <rect x="0" y="0" width="14" height="14" class="block-tile"/><text x="20" y="12" class="small-label">Tile</text>
+    <rect x="70" y="0" width="14" height="14" class="block-micro"/><text x="90" y="12" class="small-label">Micro-Tile</text>
+    <rect x="170" y="0" width="14" height="14" class="block-nano"/><text x="190" y="12" class="small-label">Nano-Tile</text>
+  </g>
+</svg>

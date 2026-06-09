@@ -1,0 +1,90 @@
+baseURL = "/papers/"
+publishDir = "/var/www/papers"
+title = "📄 Paper Reading Notes"
+theme = "PaperMod"
+defaultContentLanguage = "zh"
+
+paginate = 20
+enableEmoji = true
+
+[params]
+  description = "坍缩1号的论文精读笔记"
+  mainSections = ["papers", "trivia"]
+  DateFormat = "2006-01-02"
+  ShowReadingTime = false
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowToc = true
+  TocOpen = false
+  hideSummary = false
+  homeInfoParams = false
+  socialIcons = []
+  cover.linkFullImages = false
+  cover.hidden = true
+
+  # Search
+  search = true
+
+  # KaTeX (enabled globally; disable per-page with math: false)
+  math = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$', false]]
+          inline = [['\(', '\)'], ['$', '$']]
+
+[params.editPost]
+  disabled = true
+
+[params.assets]
+  disableFingerprinting = true
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[permalinks]
+  papers = ":slug/"
+
+[languages]
+  [languages.zh]
+    label = "中文"
+    weight = 1
+
+[menu]
+  [[menu.main]]
+    identifier = "papers"
+    name = "论文"
+    url = "./"
+    weight = 10
+  [[menu.main]]
+    identifier = "search"
+    name = "搜索"
+    url = "/search/"
+    weight = 15
+  [[menu.main]]
+    identifier = "trivia"
+    name = "趣闻"
+    url = "/trivia/"
+    weight = 15
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 18
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 20

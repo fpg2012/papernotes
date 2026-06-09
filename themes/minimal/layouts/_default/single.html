@@ -1,0 +1,26 @@
+{{ define "main" }}
+<article class="paper-single">
+  <header>
+    <h1>{{ .Title }}</h1>
+    <p class="meta">
+      <time>{{ .Date.Format "2006-01-02" }}</time>
+      {{ with .Params.arxiv }} · <a href="{{ . }}">arXiv</a>{{ end }}
+      {{ with .Params.tags }}
+        · Tags: {{ delimit . ", " }}
+      {{ end }}
+    </p>
+    <blockquote class="tldr">{{ .Params.tldr }}</blockquote>
+  </header>
+  <div class="content">
+    {{ .Content }}
+  </div>
+  <nav class="paper-nav">
+    {{ with .PrevInSection }}
+      <a href="{{ .RelPermalink }}">← {{ .Title }}</a>
+    {{ end }}
+    {{ with .NextInSection }}
+      <a href="{{ .RelPermalink }}">{{ .Title }} →</a>
+    {{ end }}
+  </nav>
+</article>
+{{ end }}

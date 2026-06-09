@@ -1,0 +1,14 @@
+{{- /* KaTeX JS + auto-render (local) */ -}}
+{{- if or .Params.math .Site.Params.math -}}
+<script defer src="/papers/katex/katex.min.js"></script>
+<script defer src="/papers/katex/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false
+    });"></script>
+{{- end -}}
