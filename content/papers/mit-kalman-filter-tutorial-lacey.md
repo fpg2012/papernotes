@@ -7,7 +7,7 @@ description: "MIT 卡尔曼滤波经典教程（Tony Lacey）。从 MSE 和最�
 tldr: "标准卡尔曼滤波教程。从 MSE 最小化出发推导状态空间形式的线性卡尔曼滤波器，给出完整的滤波-预测递归算法，并用最大似然/卡方视角做交叉验证。附带信息滤波形式的协方差更新推导。"
 authors: ["Tony Lacey"]
 affiliations: ["MIT"]
-cat_path: "ml/optimization"
+cat_path: "math/stat-prob"
 tags: [kalman-filter, state-estimation, tutorial, mit, recursive-estimation, tracking, math/stat-prob]
 slug: "mit-kalman-filter-tutorial-lacey"
 ---
