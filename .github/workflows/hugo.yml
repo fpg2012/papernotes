@@ -34,7 +34,7 @@ jobs:
           hugo-version: latest
           extended: true
 
-      - run: hugo --minify -d ./public
+      - run: hugo --minify -d ./public --baseURL https://fpg2012.github.io/papernotes/
 
       - uses: actions/upload-pages-artifact@v3
         with:
