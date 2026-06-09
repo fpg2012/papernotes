@@ -1,7 +1,7 @@
 {{- /* KaTeX JS + auto-render (local) */ -}}
 {{- if or .Params.math .Site.Params.math -}}
-<script defer src="/papers/katex/katex.min.js"></script>
-<script defer src="/papers/katex/auto-render.min.js"
+<script defer src="{{ "katex/katex.min.js" | absURL }}"></script>
+<script defer src="{{ "katex/auto-render.min.js" | absURL }}"
     onload="renderMathInElement(document.body, {
         delimiters: [
             {left: '$$', right: '$$', display: true},

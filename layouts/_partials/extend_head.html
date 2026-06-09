@@ -1,4 +1,4 @@
 {{- /* KaTeX CSS (local) */ -}}
 {{- if or .Params.math .Site.Params.math -}}
-<link rel="stylesheet" href="/papers/katex/katex.min.css">
+<link rel="stylesheet" href="{{ "katex/katex.min.css" | absURL }}">
 {{- end -}}
